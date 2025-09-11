@@ -56,6 +56,9 @@ pipeline {
                         -replace 'kamilmurtaza/hello-world:1.0', '$env:DOCKER_IMAGE' `
                         | Set-Content deployment.yaml
                 """
+
+                echo "Deployed Image:"
+                echo "%DOCKER_IMAGE%"
             }
         }
 
