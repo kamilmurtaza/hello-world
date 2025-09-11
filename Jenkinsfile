@@ -28,8 +28,10 @@ pipeline {
 
         stage('Build & Push Docker Image') {
             steps {
-/*                script {
+                script {
                   env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
+                }
+/*
                     dockerImage = docker.build(env.DOCKER_IMAGE)
 
                    docker.withRegistry('https://index.docker.io/v1/', env.REGISTER_CREDENTIALS) {
