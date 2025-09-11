@@ -29,7 +29,7 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                  env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
+                  env.DOCKER_IMAGE = "kamilmurtaza/hello-world:latest"
                 }
 /*
                     dockerImage = docker.build(env.DOCKER_IMAGE)
@@ -53,7 +53,7 @@ pipeline {
                 // we have to add subfoldername/ before file
                 powershell """
                     (Get-Content config/deployment.yaml) `
-                        -replace 'kamilmurtaza/hello-world:1.0', "$env:DOCKER_IMAGE" `
+                        -replace 'kamilmurtaza/hello-world:1.0', "kamilmurtaza/hello-world:${BUILD_NUMBER}" `
                         | Set-Content config/deployment.yaml
                 """
 

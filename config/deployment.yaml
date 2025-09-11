@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: kamilmurtaza/hello-world:1.0
+          image: kamilmurtaza/hello-world:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
           volumeMounts:
