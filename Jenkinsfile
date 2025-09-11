@@ -5,7 +5,8 @@ pipeline {
      }
     environment {
         APP_NAME = "hello-world"
-        DOCKER_IMAGE = "hello-world:latest"
+        DOCKER_IMAGE = "my-dev-ops/hello-world:%BUILD_NUMBER%"
+        KUBE_CONFIG = "C:\Users\TK-LPT-284\.kube\config"
     }
     stages {
         stage('Checkout') {
@@ -22,7 +23,8 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t ${DOCKER_IMAGE} ."
+                bat "docker build -t %DOCKER_IMAGE% ."
+                bat "docker push %DOCKER_IMAGE% "
             }
         }
         stage('Deploy Container') {
@@ -33,6 +35,26 @@ pipeline {
                 '''
             }
         }
+        stage('Update Deployment with Image') {
+                    steps {
+                        powershell """
+                            (Get-Content deployment.yml) `
+                                -replace 'my-dockerhub-user/hello-world:1.0', '${DOCKER_IMAGE}' `
+                                | Set-Content deployment.yml
+                        """
+                    }
+         }
+         stage('Deploy to Kubernetes') {
+                     steps {
+                         // Apply manifests in correct order
+                         bat """
+                             kubectl --kubeconfig=${KUBE_CONFIG} apply -f namespace.yml
+                             kubectl --kubeconfig=${KUBE_CONFIG} apply -f configmap.yml
+                             kubectl --kubeconfig=${KUBE_CONFIG} apply -f deployment.yml
+                             kubectl --kubeconfig=${KUBE_CONFIG} apply -f service.yml
+                         """
+                     }
+         }
     }
     post {
         success {
