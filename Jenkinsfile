@@ -7,6 +7,8 @@ pipeline {
         APP_NAME = "hello-world"
         KUBE_CONFIG = "C:\\Users\\TK-LPT-284\\.kube\\config"
         REGISTER_CREDENTIALS = "6ce4e6fc-9817-4ee3-b945-0e98b53e165b"
+        DOCKER_USER = "kamil.murtaza@tkxel.io"
+        DOCKER_PASSWORD = "Docker123"
     }
 
     stages {
@@ -27,20 +29,22 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                    env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
+/*                  env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
                     dockerImage = docker.build(env.DOCKER_IMAGE)
 
-                    docker.withRegistry('https://index.docker.io/v1/', env.REGISTER_CREDENTIALS) {
-                        dockerImage.push()
+                   docker.withRegistry('https://index.docker.io/v1/', env.REGISTER_CREDENTIALS) {
+                   dockerImage.push()
+                   } registry will use org docker registry which requires GKE
+                    instead we will use the below to connect to local docker desktop
+*/
+                    steps {
+                        bat """
+                            docker build -t %DOCKER_IMAGE% .
+                            docker login -u %DOCKER_USER% -p %DOCKER_PASSWORD%
+                            docker push %DOCKER_IMAGE%
+                        """
                     }
-                    // internal working of above statement
-                    /* withCredentials([usernamePassword(credentialsId: env.REGISTER_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                                bat "docker login -u %DOCKER_USER% -p %DOCKER_PASS%"
-                                bat "docker build -t %DOCKER_IMAGE% ."
-                                bat "docker push %DOCKER_IMAGE%"
-                                bat "docker logout"
-                            }
-                    */
+
                 }
             }
         }
