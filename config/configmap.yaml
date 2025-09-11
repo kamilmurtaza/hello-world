@@ -8,3 +8,4 @@ data:
     "spring.application.name": "hello-world"
     "management.endpoints.web.exposure.include": "health,info"
     "management.endpoint.health.probes.enabled": "true"
+    "greeting.customer.name": "property"
