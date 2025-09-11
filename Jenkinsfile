@@ -53,7 +53,7 @@ pipeline {
                 // we have to add subfoldername/ before file
                 powershell """
                     (Get-Content config/deployment.yaml) `
-                        -replace 'kamilmurtaza/hello-world:1.0', "kamilmurtaza/hello-world:${BUILD_NUMBER}" `
+                        -replace 'kamilmurtaza/hello-world:latest', "kamilmurtaza/hello-world:${BUILD_NUMBER}" `
                         | Set-Content config/deployment.yaml
                 """
 
