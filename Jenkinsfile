@@ -47,8 +47,10 @@ pipeline {
 
         stage('Update Deployment with Image') {
             steps {
+                // Jenkins always search for the files in root, so if files are in a sub folder
+                // we have to add subfoldername/ before file
                 powershell """
-                    (Get-Content deployment.yml) `
+                    (Get-Content config/deployment.yml) `
                         -replace 'kamilmurtaza/hello-world:1.0', '$env:DOCKER_IMAGE' `
                         | Set-Content deployment.yml
                 """
@@ -57,11 +59,13 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
+                // Jenkins always search for the files in root, so if files are in a sub folder
+                // we have to add subfoldername/ before file
                 bat """
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f namespace.yml
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f configmap.yml
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f deployment.yml
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f service.yml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/namespace.yml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/configmap.yml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/deployment.yml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/service.yml
                 """
             }
         }
