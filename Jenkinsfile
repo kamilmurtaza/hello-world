@@ -14,17 +14,17 @@ pipeline {
         stage('Build JAR') {
             steps {
                 echo "Building JAR"
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE} ."
+                bat "docker build -t ${DOCKER_IMAGE} ."
             }
         }
         stage('Deploy Container') {
             steps {
-                sh '''
+                bat '''
                     docker rm -f ${APP_NAME} || true
                     docker run -d --name ${APP_NAME} -p 8080:8080 ${DOCKER_IMAGE}
                 '''
