@@ -28,8 +28,8 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 bat '''
-                    docker rm -f ${APP_NAME} || true
-                    docker run -d --name ${APP_NAME} -p 8080:8080 ${DOCKER_IMAGE}
+                    docker rm -f %{APP_NAME}% || true
+                    docker run -d --name %{APP_NAME}% -p 8080:8080 %{DOCKER_IMAGE}%
                 '''
             }
         }
