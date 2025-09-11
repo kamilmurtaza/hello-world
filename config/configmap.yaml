@@ -4,7 +4,7 @@ metadata:
   name: hello-world-config
   namespace: hello-world-namespace
 data:
-    "server.port": "8080"
+    "server.port": "8081"
     "spring.application.name": "hello-world"
     "management.endpoints.web.exposure.include": "health,info"
     "management.endpoint.health.probes.enabled": "true"

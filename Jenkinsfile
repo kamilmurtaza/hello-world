@@ -62,6 +62,12 @@ pipeline {
             }
         }
 
+        stage('Remove Unused docker image') {
+            steps {
+                sh "docker rmi ${env.DOCKER_IMAGE}"
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 // Jenkins always search for the files in root, so if files are in a sub folder
