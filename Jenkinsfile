@@ -5,7 +5,7 @@ pipeline {
      }
     environment {
         APP_NAME = "hello-world"
-        DOCKER_IMAGE = "my-dev-ops/hello-world:%BUILD_NUMBER%"
+        DOCKER_IMAGE = "my-dev-ops/hello-world:${BUILD_NUMBER}"
         KUBE_CONFIG = "'C:\\Users\\TK-LPT-284\\.kube\\config"
     }
     stages {
