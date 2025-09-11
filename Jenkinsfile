@@ -52,7 +52,7 @@ pipeline {
                 // Jenkins always search for the files in root, so if files are in a sub folder
                 // we have to add subfoldername/ before file
                 powershell """
-                    (Get-Content config/deployment.yml) `
+                    (Get-Content config/deployment.yaml) `
                         -replace 'kamilmurtaza/hello-world:1.0', '$env:DOCKER_IMAGE' `
                         | Set-Content deployment.yaml
                 """
