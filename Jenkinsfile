@@ -53,12 +53,12 @@ pipeline {
                 // we have to add subfoldername/ before file
                 powershell """
                     (Get-Content config/deployment.yaml) `
-                        -replace 'kamilmurtaza/hello-world:1.0', '$env:DOCKER_IMAGE' `
-                        | Set-Content deployment.yaml
+                        -replace 'kamilmurtaza/hello-world:1.0', "$env:DOCKER_IMAGE" `
+                        | Set-Content config/deployment.yaml
                 """
 
                 echo "Deployed Image:"
-                echo "%DOCKER_IMAGE%"
+                echo "${DOCKER_IMAGE}"
             }
         }
 
