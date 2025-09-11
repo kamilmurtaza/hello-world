@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+            jdk 'JDK8'
+     }
     environment {
         APP_NAME = "hello-world"
         DOCKER_IMAGE = "hello-world:latest"
