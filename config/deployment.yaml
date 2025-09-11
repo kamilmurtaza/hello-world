@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: my-dockerhub-user/hello-world:1.0
+          image: kamilmurtaza/hello-world:1.0
           ports:
             - containerPort: 8080
           volumeMounts:
