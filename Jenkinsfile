@@ -27,7 +27,7 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                    env.DOCKER_IMAGE = "my-dev-ops/hello-world:${BUILD_NUMBER}"
+                    env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
                     dockerImage = docker.build(env.DOCKER_IMAGE)
 
                     docker.withRegistry('https://index.docker.io/v1/', env.REGISTER_CREDENTIALS) {
@@ -49,7 +49,7 @@ pipeline {
             steps {
                 powershell """
                     (Get-Content deployment.yml) `
-                        -replace 'my-dockerhub-user/hello-world:1.0', '$env:DOCKER_IMAGE' `
+                        -replace 'kamilmurtaza/hello-world:1.0', '$env:DOCKER_IMAGE' `
                         | Set-Content deployment.yml
                 """
             }
