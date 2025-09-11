@@ -33,6 +33,14 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', env.REGISTER_CREDENTIALS) {
                         dockerImage.push()
                     }
+                    // internal working of above statement
+                    /* withCredentials([usernamePassword(credentialsId: env.REGISTER_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                                bat "docker login -u %DOCKER_USER% -p %DOCKER_PASS%"
+                                bat "docker build -t %DOCKER_IMAGE% ."
+                                bat "docker push %DOCKER_IMAGE%"
+                                bat "docker logout"
+                            }
+                    */
                 }
             }
         }
