@@ -6,11 +6,13 @@ pipeline {
     }
     stages {
         stage('Checkout') {
+            echo "Checking out Branch"
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/hello-world.git'
+              git branch: 'main', url: 'https://github.com/kamilmurtaza/hello-world.git'
             }
         }
         stage('Build JAR') {
+            echo "Building JAR"
             steps {
                 sh 'mvn clean package -DskipTests'
             }
