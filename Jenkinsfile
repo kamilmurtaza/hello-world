@@ -52,7 +52,7 @@ pipeline {
                 powershell """
                     (Get-Content config/deployment.yml) `
                         -replace 'kamilmurtaza/hello-world:1.0', '$env:DOCKER_IMAGE' `
-                        | Set-Content deployment.yml
+                        | Set-Content deployment.yaml
                 """
             }
         }
@@ -62,10 +62,10 @@ pipeline {
                 // Jenkins always search for the files in root, so if files are in a sub folder
                 // we have to add subfoldername/ before file
                 bat """
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/namespace.yml
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/configmap.yml
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/deployment.yml
-                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/service.yml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/namespace.yaml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/configmap.yaml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/deployment.yaml
+                    kubectl --kubeconfig="${KUBE_CONFIG}" apply -f config/service.yaml
                 """
             }
         }
