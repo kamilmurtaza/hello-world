@@ -28,8 +28,8 @@ pipeline {
 
         stage('Build & Push Docker Image') {
             steps {
-                script {
-/*                  env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
+/*                script {
+                  env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
                     dockerImage = docker.build(env.DOCKER_IMAGE)
 
                    docker.withRegistry('https://index.docker.io/v1/', env.REGISTER_CREDENTIALS) {
@@ -37,16 +37,12 @@ pipeline {
                    } registry will use org docker registry which requires GKE
                     instead we will use the below to connect to local docker desktop
 */
-                    steps {
-                        bat """
-                            docker build -t %DOCKER_IMAGE% .
-                            docker login -u %DOCKER_USER% -p %DOCKER_PASSWORD%
-                            docker push %DOCKER_IMAGE%
-                        """
-                    }
-
-                }
-            }
+                  bat """
+                      docker build -t %DOCKER_IMAGE% .
+                      docker login -u %DOCKER_USER% -p %DOCKER_PASSWORD%
+                      docker push %DOCKER_IMAGE%
+                  """
+               }
         }
 
         stage('Update Deployment with Image') {
