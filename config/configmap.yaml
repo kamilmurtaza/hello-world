@@ -4,13 +4,7 @@ metadata:
   name: hello-world-config
   namespace: hello-world-namespace
 data:
-  application.yml:
-    server:
-      port: 8080
-    spring:
-      application:
-        name: hello-world
-  management:
-    endpoints:
-      web.exposure.include: health,info
-      health.probes.enabled: true
+    "server.port": "8080"
+    "spring.application.name": "hello-world"
+    "management.endpoints.web.exposure.include": "health,info"
+    "management.endpoint.health.probes.enabled": "true"
