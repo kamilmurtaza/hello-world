@@ -18,10 +18,13 @@ spec:
           image: kamilmurtaza/hello-world:latest
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: hello-world-config
           volumeMounts:
             - name: config-volume
               mountPath: /config
-      volumes:
-        - name: config-volume
-          configMap:
-            name: hello-world-config
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
