@@ -21,9 +21,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: hello-world-config
-          volumeMounts:
-            - name: config-volume
-              mountPath: /config
           readinessProbe:
             httpGet:
               path: /health
