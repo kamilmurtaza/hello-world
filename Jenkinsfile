@@ -29,8 +29,9 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                  env.DOCKER_IMAGE = "kamilmurtaza/hello-world:latest"
+                  env.DOCKER_IMAGE = "kamilmurtaza/hello-world:${BUILD_NUMBER}"
                 }
+                echo "Docker Image ${DOCKER_IMAGE} %DOCKER_IMAGE%"
 /*
                     dockerImage = docker.build(env.DOCKER_IMAGE)
 
