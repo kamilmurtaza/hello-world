@@ -23,6 +23,8 @@ pipeline {
             steps {
                 echo "Building JAR"
                 bat 'mvn clean package -DskipTests'
+
+                echo "Action Type ${env.gitlabActionType} %env.gitlabActionType%"
             }
         }
 
