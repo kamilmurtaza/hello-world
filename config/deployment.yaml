@@ -21,7 +21,3 @@ spec:
           envFrom:
             - configMapRef:
                 name: hello-world-config
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8080
